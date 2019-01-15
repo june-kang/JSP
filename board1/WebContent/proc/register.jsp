@@ -22,7 +22,7 @@
 	final String PASS = "1234";
 	
 	Connection conn = null;
-	PreparedStatement ptmt = null;
+	PreparedStatement psmt = null;
 	String sql = null;
 	// 1단계
 		try {
@@ -31,40 +31,40 @@
 		conn = DriverManager.getConnection(HOST,USER,PASS);
 	// 3단계
 		sql = "INSERT INTO `JSP_MEMBER` SET ";
-		   sql += "uid=? ,";
-		   sql += "pass=? ,";
-		   sql += "name=? ,";
-		   sql += "nick=? ,";
-		   sql += "email=? ,";
-		   sql += "hp=? ,";
-		   sql += "zip=? ,";
-		   sql += "addr1=? ,";
-		   sql += "addr2=? ,";
-		   sql += "regip=? ,";
+		   sql += "uid=?,";
+		   sql += "pass=PASSWORD(?),"; // 암호화
+		   sql += "name=?,";
+		   sql += "nick=?,";
+		   sql += "email=?,";
+		   sql += "hp=?,";
+		   sql += "zip=?,";
+		   sql += "addr1=?,";
+		   sql += "addr2=?,";
+		   sql += "regip=?,";
 		   sql += "rdate=NOW()";
 		   
 	
-		ptmt = conn.prepareStatement(sql);
+		psmt = conn.prepareStatement(sql);
 	   
-	   ptmt.setString(1,uid);
-	   ptmt.setString(2,pass);
-	   ptmt.setString(3,name);
-	   ptmt.setString(4,nick);
-	   ptmt.setString(5,email);
-	   ptmt.setString(6,hp);
-	   ptmt.setString(7,zip);
-	   ptmt.setString(8,addr1);
-	   ptmt.setString(9,addr2);
-	   ptmt.setString(10,regip);
+	   psmt.setString(1,uid);
+	   psmt.setString(2,pass);
+	   psmt.setString(3,name);
+	   psmt.setString(4,nick);
+	   psmt.setString(5,email);
+	   psmt.setString(6,hp);
+	   psmt.setString(7,zip);
+	   psmt.setString(8,addr1);
+	   psmt.setString(9,addr2);
+	   psmt.setString(10,regip);
 	// 4단계
-		ptmt.executeUpdate();
+		psmt.executeUpdate();
 		   
 	// 5단계
 		} catch(Exception e){
 			e.printStackTrace();
 		} finally{
 	// 6단계
-		ptmt.close();
+		psmt.close();
 		conn.close();
 		}
 	// 리다이렉트

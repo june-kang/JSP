@@ -5,6 +5,35 @@
 		<meta charset="UTF-8">
 		<title>회원가입</title>
 		<link rel="stylesheet" href="./css/style.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			$(function(){
+				$('input[name=uid]').focusout(function(){
+					
+					var tag = $(this)
+					var uid = $(this).val();
+							
+					$.ajax({
+						url:'./proc/checkuid.jsp?uid='+uid,
+						type:'get',
+						dataType:'json', // 자바스크립트 객체
+						success:function(data){ // checkuid.jsp 에서 data json 가져옴
+							if(data.result==1){
+								$('.resultId').css('color','red').text('이미 사용중인 아이디 입니다.');
+								tag.focus();
+							}else{
+								$('.resultId').css('color','green').text('사용 가능한 아이디 입니다.');
+							}
+							
+							
+						} // 요청이 성공했을때 콜백함수
+					});
+					
+				});
+				
+			});
+		
+		</script>
 	</head>
 	<body>
 		<div id="member">
