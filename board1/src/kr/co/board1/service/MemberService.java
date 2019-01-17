@@ -16,6 +16,9 @@ public class MemberService {
 		return service;
 	}
 	
+	// 생성자는 무조건 public이지만 싱글톤으로 관리하기 위한 클래스는 private으로 생성. 그래야 new 생성 못함
+	private MemberService() {}
+	
 	public void login() throws Exception {}
 	public void logout() throws Exception {}
 	

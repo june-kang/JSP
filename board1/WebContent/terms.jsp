@@ -2,7 +2,7 @@
 <%@page import="kr.co.board1.service.MemberService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	MemberService service = MemberService.getInstance();
+	MemberService service = MemberService.getInstance(); // 객체 생성이 아니라 얻어옴
 	TermsVO vo = service.terms();
 %>
 
