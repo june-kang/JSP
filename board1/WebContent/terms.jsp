@@ -1,22 +1,18 @@
+<%@page import="kr.co.board1.config.SQL"%>
+<%@page import="kr.co.board1.config.DBConfig"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	final String HOST = "jdbc:mysql://192.168.0.126:3306/ksw";
-	final String USER = "ksw";
-	final String PASS = "1234";
+	Connection conn = DBConfig.getConnection();
+	Statement stmt = conn.createStatement();
+	
+	ResultSet rs = stmt.executeQuery(SQL.SELECT_TERMS);
 	
 	String terms = null;
 	String privacy = null;
-
-	Class.forName("com.mysql.jdbc.Driver");
-
-	Connection conn = DriverManager.getConnection(HOST, USER, PASS);
-	Statement stmt = conn.createStatement();
-	String sql = "SELECT * FROM `JSP_TERMS`";
-	ResultSet rs = stmt.executeQuery(sql);
 
 	if(rs.next()){
 		terms = rs.getString(1);

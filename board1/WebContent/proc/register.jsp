@@ -1,3 +1,5 @@
+<%@page import="kr.co.board1.config.SQL"%>
+<%@page import="kr.co.board1.config.DBConfig"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
@@ -16,35 +18,14 @@
 	String addr1 = request.getParameter("addr1");
 	String addr2 = request.getParameter("addr2");
 	String regip = request.getRemoteAddr();
-	
-	final String HOST = "jdbc:mysql://192.168.0.126:3306/ksw";
-	final String USER = "ksw";
-	final String PASS = "1234";
-	
-	Connection conn = null;
-	PreparedStatement psmt = null;
-	String sql = null;
+
+
 	// 1단계
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.jdbc.Driver");
 	// 2단계
-		conn = DriverManager.getConnection(HOST,USER,PASS);
+		Connection conn = DBConfig.getConnection();
 	// 3단계
-		sql = "INSERT INTO `JSP_MEMBER` SET ";
-		   sql += "uid=?,";
-		   sql += "pass=PASSWORD(?),"; // 암호화
-		   sql += "name=?,";
-		   sql += "nick=?,";
-		   sql += "email=?,";
-		   sql += "hp=?,";
-		   sql += "zip=?,";
-		   sql += "addr1=?,";
-		   sql += "addr2=?,";
-		   sql += "regip=?,";
-		   sql += "rdate=NOW()";
-		   
-	
-		psmt = conn.prepareStatement(sql);
+		PreparedStatement psmt = conn.prepareStatement(SQL.INSERT_REGISTER);
 	   
 	   psmt.setString(1,uid);
 	   psmt.setString(2,pass);
@@ -60,13 +41,10 @@
 		psmt.executeUpdate();
 		   
 	// 5단계
-		} catch(Exception e){
-			e.printStackTrace();
-		} finally{
+
 	// 6단계
 		psmt.close();
 		conn.close();
-		}
 	// 리다이렉트
-		response.sendRedirect("../login.jsp");
+		response.sendRedirect("../login.jsp?register=success");
 %>

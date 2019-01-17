@@ -6,39 +6,15 @@
 		<title>회원가입</title>
 		<link rel="stylesheet" href="./css/style.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script>
-			$(function(){
-				$('input[name=uid]').focusout(function(){
-					
-					var tag = $(this)
-					var uid = $(this).val();
-							
-					$.ajax({
-						url:'./proc/checkuid.jsp?uid='+uid,
-						type:'get',
-						dataType:'json', // 자바스크립트 객체
-						success:function(data){ // checkuid.jsp 에서 data json 가져옴
-							if(data.result==1){
-								$('.resultId').css('color','red').text('이미 사용중인 아이디 입니다.');
-								tag.focus();
-							}else{
-								$('.resultId').css('color','green').text('사용 가능한 아이디 입니다.');
-							}
-							
-							
-						} // 요청이 성공했을때 콜백함수
-					});
-					
-				});
-				
-			});
-		
-		</script>
+		<script src="./js/check_validate.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<script src="./js/zipcode.js"></script>
+		<script src="./js/check_duplicate.js"></script>
 	</head>
 	<body>
 		<div id="member">
 			<section class="register">
-				<form action="./proc/register.jsp" method="POST">
+				<form id="regForm" action="./proc/register.jsp" method="POST">
 					<section>
 						<table>
 							<caption>사이트 이용정보 입력</caption>
@@ -72,24 +48,30 @@
 									<span class="info">공백없이 한글, 영문, 숫자만 입력가능</span>
 									<div>
 										<input type="text" name="nick" placeholder="별명을 입력" required />
+										<span class="resultNick"></span>
 									</div>
-									<span class="resultNick"></span>
+									
 								</td>
 							</tr>
 							<tr>
 								<td>EMAIL</td>
-								<td><input type="email" name="email" placeholder="이메일을 입력" 	required /></td>
+								<td><input type="email" name="email" placeholder="이메일을 입력" 	required />
+									<span class="resultEmail"></span>
+								</td>
+									
 							</tr>
 							<tr>
 								<td>휴대폰</td>
-								<td><input type="text" name="hp" placeholder="-포함 13자리를 입력" maxlength="13" required /></td>
+								<td><input type="text" name="hp" placeholder="-포함 13자리를 입력" maxlength="13" required />
+									<span class="resultHp"></span>
+								</td>
 							</tr>
 							<tr>
 								<td>주소</td>
 								<td>
 									<div>
 										<input type="text" name="zip" id="zip" placeholder="우편번호" readonly />
-										<button type="button" class="btnFind">주소검색</button>
+										<button type="button" class="btnFind" onclick="zipcode()">주소검색</button>
 									</div>
 									<div>
 										<input type="text" name="addr1" id="addr1" size="50" placeholder="주소를 검색하세요." readonly />
