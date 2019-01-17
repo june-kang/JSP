@@ -10,7 +10,7 @@
 		<div id="board">
 			<h3>글쓰기</h3>
 			<div class="write">
-				<form action="#" method="post">
+				<form action="./proc/write.jsp" method="post"> 
 					<table>
 						<tr>
 							<td>제목</td>

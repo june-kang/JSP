@@ -42,7 +42,7 @@
 		
 		session.setAttribute("member",vo);
 		
-		redirectUrl = "./list.jsp";
+		redirectUrl = "../list.jsp";
 	
 		
 	} else{

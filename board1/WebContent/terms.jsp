@@ -1,27 +1,9 @@
-<%@page import="kr.co.board1.config.SQL"%>
-<%@page import="kr.co.board1.config.DBConfig"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="kr.co.board1.vo.TermsVO"%>
+<%@page import="kr.co.board1.service.MemberService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	Connection conn = DBConfig.getConnection();
-	Statement stmt = conn.createStatement();
-	
-	ResultSet rs = stmt.executeQuery(SQL.SELECT_TERMS);
-	
-	String terms = null;
-	String privacy = null;
-
-	if(rs.next()){
-		terms = rs.getString(1);
-		privacy = rs.getString(2);
-	}
-	
-	rs.close();
-	stmt.close();
-	conn.close();
+	MemberService service = MemberService.getInstance();
+	TermsVO vo = service.terms();
 %>
 
 <!DOCTYPE html>
@@ -59,7 +41,7 @@
 					<caption>사이트 이용약관</caption>
 					<tr>
 						<td>
-							<textarea readonly><%=terms %></textarea>
+							<textarea readonly><%=vo.getTerms() %></textarea>
 							<div>
 								<label><input type="checkbox" name="chk1" />&nbsp;동의합니다.</label>        
 							</div>
@@ -73,7 +55,7 @@
 					<tr>
 						<td>
 							<textarea readonly>
-								<%=privacy %>
+								<%=vo.getPrivacy() %>
 							</textarea>
 							<div>
 								<label><input type="checkbox" name="chk2" />&nbsp;동의합니다.</label>        
