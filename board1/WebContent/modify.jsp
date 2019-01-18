@@ -27,7 +27,7 @@
 						<tr>
 							<td>내용</td>
 							<td>
-								<textarea name="content" rows="20" required value="<%= vo.getContent() %>" ></textarea>
+								<textarea name="content" rows="20" required><%= vo.getContent() %></textarea>
 							</td>
 						</tr>
 						<tr>
