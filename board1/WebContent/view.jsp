@@ -1,3 +1,4 @@
+<%@page import="kr.co.board1.vo.MemberVO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="kr.co.board1.config.SQL"%>
 <%@page import="kr.co.board1.config.DBConfig"%>
@@ -7,8 +8,14 @@
 <%@page import="kr.co.board1.service.BoardService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	MemberVO member = (MemberVO)session.getAttribute("member");	
+	if(member == null){
+		pageContext.forward("./login.jsp"); // sendredirect- 전체페이지가 먼저 실행되기때문에 nick값 오류 /  forward는 제어권이 login 페이지로 넘어감
+	}
+
 	BoardService service = BoardService.getInstance();
 	BoardVO vo = service.view(request);
+	service.updateHit(vo.getSeq());
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +55,7 @@
 					</table>
 					<div class="btns">
 						<a href="./proc/delete.jsp?seq=<%= vo.getSeq() %>" class="cancel del">삭제</a>
-						<a href="#" class="cancel mod">수정</a>
+						<a href="./modify.jsp?seq=<%= vo.getSeq() %>" class="cancel mod">수정</a>
 						<a href="./list.jsp" class="cancel">목록</a>
 					</div>
 				</form>

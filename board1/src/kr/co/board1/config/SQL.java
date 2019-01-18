@@ -16,4 +16,8 @@ public class SQL {
 	public static final String SELECT_VIEW = "SELECT * FROM `JSP_BOARD` WHERE seq=?";
 	public static final String UPDATE_HIT = "UPDATE `JSP_BOARD` SET hit=hit+1 WHERE seq=?";
 	public static final String DELETE_VIEW = "DELETE FROM `JSP_BOARD` WHERE seq=?";
+	public static final String UPDATE_BOARD = "UPDATE `JSP_BOARD` SET "
+											+ "title=?, "
+											+ "content=? "
+											+ " WHERE seq=?";
 }
