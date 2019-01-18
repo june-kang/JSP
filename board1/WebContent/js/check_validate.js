@@ -1,6 +1,9 @@
 $(function(){
+
+						
 				$('#regForm').submit(function(){
 					
+							
 					var uid = $('input[name=uid]').val();
 					var pw1 = $('input[name=pw1]').val();
 					var pw2 = $('input[name=pw2]').val();
@@ -13,7 +16,7 @@ $(function(){
 						alert('아이디는 최소 4자 이상이어야 합니다.');
 						return false;	
 					}
-					
+		
 					
 					// 비번 일치여부 확인
 					if(pw1!=pw2){
@@ -21,13 +24,29 @@ $(function(){
 						return false;
 					}
 					
+	
+
+
+					if(!isNickOk){
+						alert('이미 사용중인 닉네임입니다.');
+						return false;
+					}
+											
+					if(!isEmailOk){
+						alert('이미 사용중인 이메일입니다.');
+						return false;
+					}
+
+					if(!isHpOk){
+						alert('이미 사용중인 전화번호입니다.');
+						return false;
+					}
 					// 이름 영문 숫자 포함여부 체크
 					/*if(na){
 						alert('');
 						return false;
 					}*/
 					return true;
-				});
-				
-				
-			});	
+			});
+		});
+			

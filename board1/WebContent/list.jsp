@@ -29,8 +29,8 @@
 		board.setCate(rs.getString(4));
 		board.setTitle(rs.getString(5));
 		board.setContent(rs.getString(6));
-		board.setFile(rs.getString(7));
-		board.setHit(rs.getString(8));
+		board.setFile(rs.getInt(7));
+		board.setHit(rs.getInt(8));
 		board.setUid(rs.getString(9));
 		board.setRegip(rs.getString(10));
 		board.setRdate(rs.getString(11));
@@ -70,7 +70,7 @@
 						%>
 					<tr>
 						<td><%= vo.getSeq() %></td>
-						<td><a href="#"><%= vo.getTitle() %></a>&nbsp;[<%= vo.getComment() %>]</td>
+						<td><a href="./view.jsp?seq=<%= vo.getSeq() %>"><%= vo.getTitle() %></a>&nbsp;[<%= vo.getComment() %>]</td>
 						<td><%= vo.getNick() %></td>
 						<td><%=vo.getRdate().substring(2,10) %></td>
 						<td><%= vo.getHit() %></td>

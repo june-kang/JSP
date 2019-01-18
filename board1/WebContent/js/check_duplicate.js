@@ -6,31 +6,11 @@
 */
 
 // 중복여부 상태변수. 전역변수로 사용해야 register.jsp 에서도 사용가능
+
 var isUidOk = false;
 var isNickOk = false;
 var isEmailOk = false;
 var isHpOk = false;
-					
-
-if(!isUidOk){
-	alert('이미 사용중인 아이디입니다.');
-	return false;
-}
-
-if(!isNickOk){
-	alert('이미 사용중인 닉네임입니다.');
-	return false;
-}
-						
-if(!isEmailOk){
-	alert('이미 사용중인 이메일입니다.');
-	return false;
-}
-
-if(!isHpOk){
-	alert('이미 사용중인 전화번호입니다.');
-	return false;
-}
 
 $(function(){
 									

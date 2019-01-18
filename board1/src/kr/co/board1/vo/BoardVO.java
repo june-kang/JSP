@@ -7,8 +7,8 @@ public class BoardVO {
 	private String cate;
 	private String title;
 	private String content;
-	private String file;
-	private String hit;
+	private int file;
+	private int hit;
 	private String uid;
 	private String regip;
 	private String rdate;
@@ -56,16 +56,16 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getFile() {
+	public int getFile() {
 		return file;
 	}
-	public void setFile(String file) {
+	public void setFile(int file) {
 		this.file = file;
 	}
-	public String getHit() {
+	public int getHit() {
 		return hit;
 	}
-	public void setHit(String hit) {
+	public void setHit(int hit) {
 		this.hit = hit;
 	}
 	public String getUid() {
