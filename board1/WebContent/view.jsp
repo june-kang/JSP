@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.board1.vo.MemberVO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="kr.co.board1.config.SQL"%>
@@ -8,14 +9,14 @@
 <%@page import="kr.co.board1.service.BoardService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	MemberVO member = (MemberVO)session.getAttribute("member");	
-	if(member == null){
-		pageContext.forward("./login.jsp"); // sendredirect- 전체페이지가 먼저 실행되기때문에 nick값 오류 /  forward는 제어권이 login 페이지로 넘어감
-	}
-
 	BoardService service = BoardService.getInstance();
 	BoardVO vo = service.view(request);
+	
+	MemberVO member = service.getMember(session);
 	service.updateHit(vo.getSeq());
+	
+	// 댓글 가져오기
+	ArrayList<BoardVO> list = service.listComment(vo.getSeq());
 %>
 <!DOCTYPE html>
 <html>
@@ -65,21 +66,25 @@
 			<section class="comments">
 				<h3>댓글목록</h3>
 				
+				<%for(BoardVO commentVO : list){ %>
 				<div class="comment">
 					<span>
-						<span>홍길동</span>
-						<span>18-03-01</span>
+						<span><%=commentVO.getNick() %></span>
+						<span><%=commentVO.getRdate().substring(2,10) %></span>
 					</span>
-					<textarea>테스트 댓글입니다.</textarea>
+					<textarea><%=commentVO.getContent() %></textarea>
 					<div>
-						<a href="#" class="del">삭제</a>
+						<a href="./proc/delete.jsp?seq=<%=commentVO.getSeq() %>&parent=<%=commentVO.getParent() %>" class="del">삭제</a>
 						<a href="#" class="mod">수정</a>
 					</div>
 				</div>
+				<% } %>
 			
+				<%if(list.size()==0){ %>
 				<p class="empty">
 					등록된 댓글이 없습니다.
 				</p>
+				<%} %>
 				
 			</section>
 			
@@ -87,7 +92,9 @@
 			<section class="comment_write">
 				<h3>댓글쓰기</h3>
 				<div>
-					<form action="#" method="post">
+					<form action="./proc/commentWrite.jsp" method="post">
+					<input type="text" name="parent" value="<%=vo.getSeq() %>" />
+					<input type="text" name="uid" value="<%=member.getUid() %>" />
 						<textarea name="comment" rows="5"></textarea>
 						<div class="btns">
 							<a href="#" class="cancel">취소</a>

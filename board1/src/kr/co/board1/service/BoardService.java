@@ -1,14 +1,20 @@
 package kr.co.board1.service;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import com.mysql.fabric.Response;
 
 import kr.co.board1.config.DBConfig;
 import kr.co.board1.config.SQL;
 import kr.co.board1.vo.BoardVO;
+import kr.co.board1.vo.MemberVO;
 
 
 public class BoardService {
@@ -21,6 +27,11 @@ public class BoardService {
 	
 	
 	private BoardService() {}
+	
+	public MemberVO getMember(HttpSession session) {
+		MemberVO vo = (MemberVO)session.getAttribute("member");
+		return vo;
+		}
 	
 	
 	public void insertBoard() throws Exception {}
@@ -93,16 +104,18 @@ public class BoardService {
 		
 		pstmt.executeUpdate();
 		pstmt.close();
+		conn.close();
 		
 		return seq;
 		
 	}
 	
 	
-	public void delete(HttpServletRequest request) throws Exception {
+	public String delete(HttpServletRequest request) throws Exception {
 		
 		request.setCharacterEncoding("UTF-8");
 		String seq = request.getParameter("seq");
+		String parent = request.getParameter("parent");
 
 		Connection conn = DBConfig.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(SQL.DELETE_VIEW);
@@ -111,9 +124,69 @@ public class BoardService {
 
 		pstmt.close();
 		conn.close();
+		
+		return parent;
 	}
 	
 	
-	public void insertComment() throws Exception {}
-	public void listComment() throws Exception {}
+	public String insertComment(HttpServletRequest request) throws Exception {
+			
+		request.setCharacterEncoding("UTF-8");
+		String parent = request.getParameter("parent");
+		String content = request.getParameter("comment");
+		String uid = request.getParameter("uid");
+		String regip = request.getRemoteAddr();
+
+		Connection conn = DBConfig.getConnection();
+		CallableStatement call = conn.prepareCall(SQL.INSERT_COMMENT);
+		call.setString(1, parent);
+		call.setString(2, content);
+		call.setString(3, uid);
+		call.setString(4, regip);
+		call.execute();
+
+		call.close();
+		conn.close();
+		
+		return parent;
+	}
+
+	public ArrayList<BoardVO> listComment(int parent) throws Exception {
+		
+		
+		Connection conn = DBConfig.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(SQL.SELECT_COMMENT);
+		pstmt.setInt(1, parent);
+		ResultSet rs = pstmt.executeQuery();
+		
+		ArrayList<BoardVO> list = new ArrayList<>();
+		while(rs.next()) {
+			BoardVO vo = new BoardVO();
+			vo.setSeq(rs.getInt("seq"));
+			vo.setParent(rs.getInt(2));
+			vo.setComment(rs.getInt(3));
+			vo.setContent(rs.getString(6));
+			vo.setFile(rs.getInt(7));
+			vo.setHit(rs.getInt(8));
+			vo.setUid(rs.getString(9));
+			vo.setRegip(rs.getString(10));
+			vo.setRdate(rs.getString("rdate"));
+			vo.setNick(rs.getString(12));
+			
+			list.add(vo);
+		}
+		
+		rs.close();
+		pstmt.close();
+		conn.close();
+		
+		return list;
+	}
+	
+	
+	public void updateCommentCount() throws Exception{
+		
+		
+	}
+	
 }
