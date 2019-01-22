@@ -67,7 +67,7 @@
 					
 					<% 
 						for(BoardVO vo : list){
-						%>
+					%>
 					<tr>
 						<td><%= vo.getSeq() %></td>
 						<td><a href="./view.jsp?seq=<%= vo.getSeq() %>"><%= vo.getTitle() %></a>&nbsp;[<%= vo.getComment() %>]</td>

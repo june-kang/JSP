@@ -12,7 +12,7 @@ public class SQL {
 											+ "uid=?,"
 											+ "regip=?,"
 											+ "rdate=NOW()";
-	public static final String SELECT_LIST = "SELECT B.*, M.nick FROM JSP_BOARD AS B JOIN JSP_MEMBER AS M ON B.uid = M.uid ORDER BY B.seq DESC";
+	public static final String SELECT_LIST = "SELECT B.*, M.nick FROM JSP_BOARD AS B JOIN JSP_MEMBER AS M ON B.uid = M.uid WHERE B.parent=0 ORDER BY B.seq DESC";
 	public static final String SELECT_VIEW = "SELECT * FROM `JSP_BOARD` WHERE seq=?";
 	public static final String UPDATE_HIT = "UPDATE `JSP_BOARD` SET hit=hit+1 WHERE seq=?";
 	public static final String DELETE_VIEW = "DELETE FROM `JSP_BOARD` WHERE seq=?";
