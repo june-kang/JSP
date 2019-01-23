@@ -53,6 +53,56 @@ public class BoardService {
 		return total;
 	}
 	
+	public int getLimitStart(String pg) {
+		int start = 0;
+		
+		if(pg == null){
+			start = 1;
+		}else{
+			start = Integer.parseInt(pg);
+		}
+		
+		return (start - 1) * 10;
+	}
+	
+	public int getPageEnd(int total) {
+		int pageEnd = 0;
+		
+		if(total % 10 == 0){
+			pageEnd = total / 10;
+		}else{
+			pageEnd = (total / 10) + 1;
+		}
+		return pageEnd;
+	}
+	
+	public int getPageCountStart(int total, int limit) {
+		return total - limit;
+	}
+	
+	public int[] getPageGroupStartEnd(String pg, int pageEnd) {
+		int[] groupStartEnd = new int[2];
+		int current = 0;
+		
+		if(pg==null) {
+			current = 1;
+		}else {
+			current = Integer.parseInt(pg);
+		}
+		
+		int currentPage = current;
+		int currentPageGroup =(int) Math.ceil(currentPage/10.0);  // 실수로 나눠서 올림을 함
+		int groupStart = (currentPageGroup-1)*10+1;
+		int groupEnd = (currentPageGroup)*10;
+		
+		if(groupEnd > pageEnd){
+			groupEnd = pageEnd;
+		}
+		groupStartEnd[0] = groupStart;
+		groupStartEnd[1] = groupEnd;
+		
+		return groupStartEnd;
+	}
 	
 	public ArrayList<BoardVO> list(int start) throws Exception {
 
