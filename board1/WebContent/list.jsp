@@ -1,3 +1,4 @@
+<%@page import="kr.co.board1.service.BoardService"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.board1.vo.BoardVO"%>
@@ -14,34 +15,46 @@
 		pageContext.forward("./login.jsp"); // sendredirect- 전체페이지가 먼저 실행되기때문에 nick값 오류 /  forward는 제어권이 login 페이지로 넘어감
 	}
 	
-	Connection conn = DBConfig.getConnection();
-	PreparedStatement pstmt = conn.prepareStatement(SQL.SELECT_LIST);
-	ResultSet rs = pstmt.executeQuery();
+	request.setCharacterEncoding("UTF-8");
+	String pg = request.getParameter("pg");
 	
-	ArrayList<BoardVO> list = new ArrayList<>();
+	BoardService service = BoardService.getInstance();
 	
+	// Limit용 start 값 계산
+	int start = 0;
 	
-	while(rs.next()){
-		BoardVO board = new BoardVO();
-		board.setSeq(rs.getInt(1));
-		board.setParent(rs.getInt(2));
-		board.setComment(rs.getInt(3));
-		board.setCate(rs.getString(4));
-		board.setTitle(rs.getString(5));
-		board.setContent(rs.getString(6));
-		board.setFile(rs.getInt(7));
-		board.setHit(rs.getInt(8));
-		board.setUid(rs.getString(9));
-		board.setRegip(rs.getString(10));
-		board.setRdate(rs.getString(11));
-		board.setNick(rs.getString(12));
-		
-		list.add(board);
+	if(pg == null){
+		start = 1;
+	}else{
+		start = Integer.parseInt(pg);
 	}
-	rs.close();
-	pstmt.close();
-	conn.close();
 	
+	int limit = (start - 1) * 10;
+	
+	// 페이지번호 계산
+	int total = service.getTotal();
+	int pageEnd = 0;
+	
+	if(total % 10 == 0){
+		pageEnd = total / 10;
+	}else{
+		pageEnd = (total / 10) + 1;
+	}
+	
+	// 글 카운터번호 계산
+	int count = total - limit;
+	
+	// 페이지 그룹 계산
+	int currentPage = start;
+	int currentPageGroup =(int) Math.ceil(currentPage/10.0);  // 실수로 나눠서 올림을 함
+	int groupStart = (currentPageGroup-1)*10+1;
+	int groupEnd = (currentPageGroup)*10;
+	
+	if(groupEnd > pageEnd){
+		groupEnd = pageEnd;
+	}
+	
+	ArrayList<BoardVO> list = service.list(limit);
 %>
 <!DOCTYPE html>
 <html>
@@ -69,7 +82,7 @@
 						for(BoardVO vo : list){
 					%>
 					<tr>
-						<td><%= vo.getSeq() %></td>
+						<td><%= count-- %></td>
 						<td><a href="./view.jsp?seq=<%= vo.getSeq() %>"><%= vo.getTitle() %></a>&nbsp;[<%= vo.getComment() %>]</td>
 						<td><%= vo.getNick() %></td>
 						<td><%=vo.getRdate().substring(2,10) %></td>
@@ -83,9 +96,18 @@
 			<!-- 페이징 -->
 			<nav class="paging">
 				<span> 
-				<a href="#" class="prev">이전</a>
-				<a href="#" class="num">1</a>
-				<a href="#" class="next">다음</a>
+				<%if(groupStart > 1){%>
+				<a href="./list.jsp?pg=<%= groupStart-1 %>" class="prev">이전</a>
+				<% } %>
+				<% for(int current=groupStart ; current<=groupEnd ; current++){ %>
+				
+				<a href="./list.jsp?pg=<%= current %>" class="num"><%= current %></a>
+				<% } %>
+				
+				<%if(groupEnd < pageEnd){ %>
+				<a href="./list.jsp?pg=<%= groupEnd+1 %>" class="next">다음</a>
+				<%} %>
+				
 				</span>
 			</nav>
 			<a href="./write.jsp" class="btnWrite">글쓰기</a>

@@ -4,6 +4,7 @@
 	BoardService board = BoardService.getInstance();
 	String parent = board.delete(request);
 	
+	
 	response.sendRedirect("../view.jsp?seq="+parent);
 
 

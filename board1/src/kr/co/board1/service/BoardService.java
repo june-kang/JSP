@@ -4,12 +4,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import com.mysql.fabric.Response;
 
 import kr.co.board1.config.DBConfig;
 import kr.co.board1.config.SQL;
@@ -36,8 +35,59 @@ public class BoardService {
 	
 	public void insertBoard() throws Exception {}
 	
+	public int getTotal() throws Exception{
+		
+		int total = 0;
+		Connection conn = DBConfig.getConnection();
+		Statement stmt = conn.createStatement();
+		
+		ResultSet rs = stmt.executeQuery(SQL.SELECT_COUNT);
+		if(rs.next()) {
+			total = rs.getInt(1);
+		}
+		
+		rs.close();
+		stmt.close();
+		conn.close();
+		
+		return total;
+	}
 	
-	public void list() throws Exception {}
+	
+	public ArrayList<BoardVO> list(int start) throws Exception {
+
+		Connection conn = DBConfig.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(SQL.SELECT_LIST);
+		pstmt.setInt(1, start);
+		ResultSet rs = pstmt.executeQuery();
+		
+		
+		ArrayList<BoardVO> list = new ArrayList<>();
+				
+		while(rs.next()){
+			BoardVO board = new BoardVO();
+			board.setSeq(rs.getInt(1));
+			board.setParent(rs.getInt(2));
+			board.setComment(rs.getInt(3));
+			board.setCate(rs.getString(4));
+			board.setTitle(rs.getString(5));
+			board.setContent(rs.getString(6));
+			board.setFile(rs.getInt(7));
+			board.setHit(rs.getInt(8));
+			board.setUid(rs.getString(9));
+			board.setRegip(rs.getString(10));
+			board.setRdate(rs.getString(11));
+			board.setNick(rs.getString(12));
+			
+			list.add(board);
+		}
+		rs.close();
+		pstmt.close();
+		conn.close();
+		
+		return list;
+		
+	}
 	
 	
 	public void updateHit(int seq) throws Exception {
@@ -161,7 +211,7 @@ public class BoardService {
 		
 		ArrayList<BoardVO> list = new ArrayList<>();
 		while(rs.next()) {
-			BoardVO vo = new BoardVO();
+			BoardVO vo = new BoardVO(); // list 배열안에 vo 객체 여러개가 담김 - new BoardVO()가 안에 있어야 여러개 생성 가능
 			vo.setSeq(rs.getInt("seq"));
 			vo.setParent(rs.getInt(2));
 			vo.setComment(rs.getInt(3));
