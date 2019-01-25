@@ -12,8 +12,33 @@ public class BoardVO {
 	private String uid;
 	private String regip;
 	private String rdate;
+	
 	private String nick;
 	
+	private String oldName;
+	private String newName;
+	private int download;
+	
+	public String getNewName() {
+		return newName;
+	}
+	public void setNewName(String newName) {
+		this.newName = newName;
+	}
+	public int getDownload() {
+		return download;
+	}
+	public void setDownload(int download) {
+		this.download = download;
+	}
+		
+	public String getOldName() {
+		return oldName;
+	}
+	public void setOldName(String oldName) {
+		this.oldName = oldName;
+	}
+		
 	public String getNick() {
 		return nick;
 	}

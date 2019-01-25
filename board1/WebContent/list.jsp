@@ -27,7 +27,7 @@
 	int total = service.getTotal();
 	int pageEnd = service.getPageEnd(total);
 	
-	// 글 카운터번호 계산
+	// 글 카운터번호 계산, 목록 글번호 10씩 줄어들게 계산
 	int count = service.getPageCountStart(total, limit);
 	
 	// 페이지 그룹 계산
@@ -64,7 +64,11 @@
 					%>
 					<tr>
 						<td><%= count-- %></td>
-						<td><a href="./view.jsp?seq=<%= vo.getSeq() %>"><%= vo.getTitle() %></a>&nbsp;[<%= vo.getComment() %>]</td>
+						<td><a href="./view.jsp?seq=<%= vo.getSeq() %>"><%= vo.getTitle() %></a>&nbsp;[<%= vo.getComment() %>]
+						<%if(vo.getFile()!=0){ %>
+						<img src="./img/file_ico.png"/>
+						<%} %>
+						</td>
 						<td><%= vo.getNick() %></td>
 						<td><%=vo.getRdate().substring(2,10) %></td>
 						<td><%= vo.getHit() %></td>

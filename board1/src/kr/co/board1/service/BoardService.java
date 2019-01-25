@@ -33,7 +33,69 @@ public class BoardService {
 		}
 	
 	
-	public void insertBoard() throws Exception {}
+	public int write(int file, String... args) throws Exception { // 가변매개변수
+		
+		Connection conn = DBConfig.getConnection();
+		
+		// 트랜잭션을 시작. 한 동작으로 만들어서 다른 명령실행x
+		conn.setAutoCommit(false); 
+			
+		
+		/* 다른 방법 쿼리문 두개 실행안하고 statement에서 키받아오는법
+		 * int key = 0;
+		 * PreparedStatement pstmt = conn.prepareStatement(SQL.INSERT_BOARD, Statement.RETURN_GENERATED_KEYS);
+		 * pstmt.setString(1, args[0]);
+		 * pstmt.setString(2, args[1]);
+		 * pstmt.setString(3, args[2]);
+		 * pstmt.setInt(4, file);
+		 * pstmt.setString(5, args[3]);
+		 * pstmt.executeUpdate();
+		 * ResultSet rs = pstmt.getGeneratedKeys();
+		 * if (rs!=null && rs.next()){
+		 * key = rs.getInt(1);
+		 * }
+		*/
+		PreparedStatement pstmt = conn.prepareStatement(SQL.INSERT_BOARD);
+		pstmt.setString(1, args[0]);
+		pstmt.setString(2, args[1]);
+		pstmt.setString(3, args[2]);
+		pstmt.setInt(4, file);
+		pstmt.setString(5, args[3]);
+	
+		Statement stmt = conn.createStatement();
+		
+		pstmt.executeUpdate();
+		ResultSet rs = stmt.executeQuery(SQL.SELECT_MAX_SEQ);
+		
+		conn.commit(); // 두개의 쿼리문 동시에 실행. 중간에 장애가 발생했을 경우 rollback 해서 시작점으로 돌아감
+		
+		int seq = 0;
+		if(rs.next()) {
+			seq = rs.getInt(1);
+		}
+		
+		rs.close();
+		pstmt.close();
+		stmt.close();
+		conn.close();
+		
+		return seq;
+		
+	}
+	
+	public void fileInsert(int parent, String oldName, String newFileName) throws Exception{
+		
+		Connection conn = DBConfig.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(SQL.INSERT_FILE);
+		pstmt.setInt(1, parent);
+		pstmt.setString(2, oldName);
+		pstmt.setString(3, newFileName);
+		
+		pstmt.executeUpdate();
+		
+		pstmt.close();
+		conn.close();
+	}
 	
 	public int getTotal() throws Exception{
 		
@@ -91,7 +153,7 @@ public class BoardService {
 		}
 		
 		int currentPage = current;
-		int currentPageGroup =(int) Math.ceil(currentPage/10.0);  // 실수로 나눠서 올림을 함
+		int currentPageGroup =(int) Math.ceil(currentPage/10.0);  // 실수로 나눠서 올림함
 		int groupStart = (currentPageGroup-1)*10+1;
 		int groupEnd = (currentPageGroup)*10;
 		
@@ -159,12 +221,14 @@ public class BoardService {
 		String seq = request.getParameter("seq");
 
 		Connection conn = DBConfig.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement(SQL.SELECT_VIEW);
+		
+		PreparedStatement pstmt = conn.prepareStatement(SQL.SELECT_VIEW_WITH_FILE);
 		pstmt.setString(1,seq);
 		
 		ResultSet rs = pstmt.executeQuery();
 				
 		BoardVO vo = new BoardVO();
+		
 		
 		if(rs.next()){
 			vo.setSeq(rs.getInt(1));
@@ -177,7 +241,11 @@ public class BoardService {
 			vo.setHit(rs.getInt(8));
 			vo.setUid(rs.getString(9));
 			vo.setRegip(rs.getString(10));
-			vo.setRdate(rs.getString(11));		
+			vo.setRdate(rs.getString(11));
+			
+			vo.setOldName(rs.getString("oldName"));
+			vo.setNewName(rs.getString("newName"));
+			vo.setDownload(rs.getInt("download"));
 		}
 		
 		
@@ -185,6 +253,7 @@ public class BoardService {
 		pstmt.close();
 		conn.close();
 		
+	
 		return vo;
 	}
 	

@@ -88,8 +88,8 @@
 						<tr>
 							<td>첨부파일</td>
 							<td>
-								<a href="#">테스트.hwp</a>
-								<span>3회 다운로드</span>
+								<a href="./proc/filedown.jsp?seq=<%= vo.getSeq() %>&newName=<%= vo.getNewName()%>&oldName=<%=vo.getOldName()%>"><%=vo.getOldName() %></a>
+								<span><%=vo.getDownload() %>회 다운로드</span>
 							</td>
 						</tr>
 						<%} %>
