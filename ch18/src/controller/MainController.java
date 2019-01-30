@@ -92,7 +92,7 @@ public class MainController extends HttpServlet {
 		CommonAction instance = (CommonAction) instances.get(action);
 		view = instance.requestProc(req, resp);
 				
-		RequestDispatcher dispatcher = req.getRequestDispatcher(view);
+		RequestDispatcher dispatcher = req.getRequestDispatcher(view);// 사용자의 원래 요청을 다른 서블릿이나 JSP 페이지 등과 같은 다른동적 웹 자원으로 전달
 		dispatcher.forward(req, resp);
 		
 	}
