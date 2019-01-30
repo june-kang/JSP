@@ -20,17 +20,20 @@
    	<servlet-name>MainController</servlet-name>
    	<url-pattern>/hello.do</url-pattern>
    </servlet-mapping>
-   <servlet-mapping>
-   	<servlet-name>MainController</servlet-name>
-   	<url-pattern>/welcome.do</url-pattern>
-   </servlet-mapping>
-    <servlet-mapping>
-   	<servlet-name>MainController</servlet-name>
-   	<url-pattern>/greeting.do</url-pattern>
-   </servlet-mapping>
-   <servlet-mapping>
-   	<servlet-name>MainController</servlet-name>
-   	<url-pattern>/introduce.do</url-pattern>
-   </servlet-mapping>
+   
+   
+   <!-- UTF-8 인코딩 필터 등록 -->
+   <filter>
+   	<filter-name>encodingFilter</filter-name>
+   	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+   	<init-param>
+   		<param-name>encoding</param-name>
+   		<param-value>UTF-8</param-value>
+   	</init-param>
+   </filter>
+   <filter-mapping>
+   	<filter-name>encodingFilter</filter-name>
+	<url-pattern>/*</url-pattern>   
+   </filter-mapping>
 
 </web-app>
