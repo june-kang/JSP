@@ -1,0 +1,432 @@
+/* 초기화 */
+* {
+	margin: 0;
+	padding: 0;
+	font: normal 12px '돋움';				
+}
+
+ul, ol { list-style: none; }
+a { text-decoration: none; color: #111; }
+input, textarea { outline: none; }
+
+/* 게시판 공통(글목록, 글쓰기, 글보기, 글수정, 버튼등) */
+#board {
+	width: 720px;
+	margin: 60px auto;
+}
+
+#board > .user { float: right; margin-bottom: 10px; }
+
+#board table {
+	width: 100%;
+	border-top: 2px solid #111;
+	/* 테이블 테두리간 여백을 제거 */
+	border-collapse: collapse;
+}
+
+#board table td {
+	padding: 8px 5px;
+	border-top: 1px solid #e9e9e9;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+
+#board > .btnWrite {
+	float: right;
+	padding: 7px;
+	margin-top: -50px;
+	border: 1px solid #3b3c3f;
+	background: #4b545e;
+	color: #fff;
+}
+
+#board .btns { float: right; margin-top: 10px; }
+#board .submit {
+	padding: 7px;
+	border: 1px solid #3b3c3f;
+	background: #4b545e;
+	color: #fff;
+}
+
+#board .cancel {
+	padding: 7px;
+	border: 1px solid #d9ded9;
+	background: #f2f5f9;
+	color: #000;
+}
+
+/* 글쓰기 */
+#board > .write input[name=subject] { width: 100%; height: 22px; border: 0; }
+#board > .write label {}
+#board > .write textarea { width: 100%; border: 0; resize: none; }
+#board > .write td:nth-child(1) { 
+	width: 100px;
+	background: #f5f8f9;
+	text-align: center; 
+}
+
+
+/* 글목록 */
+#board > .list {
+	position: relative;
+}
+
+#board .logout { 
+	position: absolute;
+	right: 0;
+	top: -60px;
+}
+
+#board > .list tr:nth-child(1) > td {
+	padding: 12px;
+	border-top: 1px solid #d1dee2;
+	border-bottom: 1px solid #d1dee2;
+	background: #e5ecef;
+	color: #383838;
+}
+
+#board > .list tr:nth-child(1) > td:nth-child(2) { text-align: center; } 
+
+#board > .list td:nth-child(1) { width: 50px; text-align: center; }
+#board > .list td:nth-child(2) { width: auto; text-align: left; }
+#board > .list td:nth-child(3) { width: 100px; text-align: center; }
+#board > .list td:nth-child(4) { width: 110px; text-align: center; }
+#board > .list td:nth-child(5) { width: 50px; text-align: center; }
+
+/* 글목록-페이징 */
+#board > .paging {
+	margin: 0 0 20px;
+	padding: 20px 0 0;
+	text-align: center;
+}
+
+#board > .paging a {
+	display: inline-block;
+	padding: 0 8px;
+	height: 25px;
+	color: #000;
+	background: #f2f2f2;
+	border: 1px solid #d7d7d7;
+	line-height: 25px;
+}
+
+#board > .paging .current {
+	border: 1px solid #6d6d6d;
+	background: #888;
+	color: #fff;
+}
+
+/* 글보기 */
+#board > .view input[name=subject] { width: 100%; height: 22px; border: 0; }
+#board > .view label {}
+#board > .view textarea { width: 100%; border: 0; resize: none; }
+#board > .view td:nth-child(1) { 
+	width: 100px;
+	background: #f5f8f9;
+	text-align: center; 
+}
+
+#board > .view .btns { float: right; margin-top: 10px; }
+#board > .view .submit {
+	padding: 7px;
+	border: 1px solid #3b3c3f;
+	background: #4b545e;
+	color: #fff;
+}
+
+#board > .view .cancel {
+	padding: 7px;
+	border: 1px solid #d9ded9;
+	background: #f2f5f9;
+	color: #000;
+}
+
+/* 댓글쓰기 */
+.comment_write {
+	padding: 20px 20px 40px;
+	border: 1px solid #e3e3e3;
+	background: #f9f9f9;
+	margin-top: 20px;
+}
+
+.comment_write > h3 {
+	font-weight: bold;
+	border-bottom: 1px dotted #999;
+	padding-bottom: 6px;
+}
+
+.comment_write > div {
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+.comment_write textarea {
+	width: 100%;
+	resize: none;
+	border: 1px solid #e4eaec;
+	color: #000;
+}
+
+/* 댓글목록 */
+.comments {
+	padding: 20px 20px 10px;
+	border: 1px solid #e3e3e3;
+	background: #f9f9f9;
+	margin-top: 40px;
+}
+
+.comments > h3 {
+	font-weight: bold;
+}
+
+.comments > .comment {
+	border-top: 1px dotted #999;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+.comments textarea {
+	width: 100%;
+	border: 0;
+	background: transparent;
+	color: #000;
+	margin: 10px 0;
+	resize: none;
+}
+
+.comment > div {
+	text-align: right;
+}
+
+.comments > .empty {
+	margin: 0;
+	padding: 20px !important;
+	text-align: center
+}
+
+
+/* 이용약관 */
+#terms {    
+	width: 600px;
+    margin: 60px auto;
+}
+
+#terms table { 
+	width:100%;
+	border-top: 2px solid #000; 
+	border-collapse:collapse;
+	border-spacing:0;
+}
+#terms td {
+	padding: 7px 10px;
+    border: 1px solid #e9e9e9;
+    background: transparent;
+}
+
+#terms td > div {
+	float: right;
+	padding-top: 6px;
+}
+
+#terms caption {
+	padding: 10px 0;
+    font-weight: bold;
+    text-align: left;
+}
+    
+#terms textarea {
+	width:99%;
+	height:200px; 
+	resize:none;
+	border:1px solid #e4eaec;
+	background:#f7f7f7;
+	color:#000;
+	vertical-align:middle;
+	line-height:2em; 
+	margin-bottom: 2px;	
+	padding:2px 2px 3px;
+}
+
+#terms > div { float: right; margin-top: 16px; }
+/* 회원가입 */
+#member {
+	width: 800px;
+	margin: 0px auto 30px;
+}
+
+#member > section > h1 {
+	font-weight: bold;
+	font-size: 15px;
+	margin: 6px 0;
+}
+
+#member > section > textarea {
+	width: 100%;
+	resize: none;
+}
+
+#member > section > label {
+	float: right;
+}
+
+#member > nav {
+	width: 130px;
+	margin: 30px auto;
+}
+
+#member > nav > a {
+	display: inline-block;
+	width: 60px;
+	height: 40px;
+	border: 1px solid #999;
+	background: #e9e9e9;
+	text-align: center;
+	line-height: 40px;
+}
+
+#member > nav > a:hover {
+	background: #777;
+	color: white;
+}
+
+
+/* 회원가입 */
+.register { 
+	width: 600px; 
+	margin: 60px auto; 
+}
+
+.register table { 
+	width:100%;
+	border-top: 2px solid #000000; 
+	border-collapse:collapse;
+	border-spacing:0;
+}
+.register caption {
+	padding: 10px 0;
+	font-weight:bold;
+	text-align:left;
+}
+
+.register td:nth-child(1) {
+	width:70px;
+	padding:7px 13px;
+	border:1px solid #e9e9e9; 
+	background:#f5f8f9;
+	text-align:left;
+}
+.register td:nth-child(2) {
+	padding:7px 10px; 
+	border:1px solid #e9e9e9; 
+	background:transparent;
+}
+.register table input {
+	height:22px; 
+	border:1px solid #e4eaec;
+	background:#f7f7f7;
+	color:#000;
+	vertical-align:middle;
+	line-height:2em; 
+	margin-bottom: 2px;
+}
+.register .info {
+	display:block;
+	padding:0 0 5px;
+	line-height:1.4em;
+}
+
+.register > form > div { float: right; margin-top: 16px; }
+
+.register .btnFind {
+	padding: 4px;
+    border: 1px solid #bebebe;
+    background: #e9e9e9;
+    color: #222;
+    cursor: pointer;
+}
+
+.register .join {
+	padding:7px;
+	border:1px solid #bebebe;
+	background:#e9e9e9;
+	color:#222;
+	cursor:pointer
+}
+
+.register .cancel {
+	padding:8px;
+	border:1px solid #bebebe;
+	background:#fdfdfd;
+	color:#222;
+	cursor:pointer
+}
+
+
+/* 로그인 */
+#member > .login {
+	width: 360px;
+	padding: 100px 0;
+	margin: 0 auto;
+}
+
+#member > .login > form {
+	position: relative;
+	padding: 20px 20px 20px 50px;
+	border: 1px solid #cfded8;
+	border-bottom: 0;
+	background: #fff;
+	margin: 0;
+}
+#member > .login img { width: 20px; }
+#member > .login table input {
+	display: block;
+    width: 162px;
+    height: 22px;
+    margin: 0 0 5px 0px;
+    border: 1px solid #e4eaec;
+    background: #f7f7f7;
+    color: #000;
+    vertical-align: middle;
+    line-height: 2em;
+}
+
+#member > .login .btnLogin {
+	position: absolute;
+	right: 52px;
+	top: 22px;
+	width: 60px;
+    height: 55px;
+    padding: 8px;
+    border: 1px solid #bebebe;
+    background: #fdfdfd;
+    color: #222;
+    cursor: pointer;
+}
+
+#member > .login > .info {
+	margin: 0 0 30px;
+    padding: 20px;
+    border: 1px solid #cfded8;
+    background: #f5f6fa;
+}
+
+#member > .login > .info > p { padding: 10px 0; line-height: 1.5em; }
+#member > .login > .info > div { text-align: right; }
+
+
+/* 공통(로그인, 약관, 회원가입) */
+.btnCancel { padding:8px; border:1px solid #bebebe; background:#fdfdfd; color:#222; }
+.btnNext   { padding:8px; border:1px solid #bebebe; background:#e9e9e9; color:#222; }
+.btnJoin   { padding:7px; border:1px solid #bebebe; background:#e9e9e9; color:#222; }
+.btnFind   { padding:4px; border:1px solid #e4eaec; background:#fdfdfd; color:#222; }
+
+
+
+
+
+
+
+
+
+
+
