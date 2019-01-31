@@ -5,18 +5,48 @@
 		<meta charset="UTF-8">
 		<title>회원가입</title>
 		<link rel="stylesheet" href="/board2/css/style.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){ // 4자 이상 입력했을때 중복확인하는 키보드이벤트
+				 $('input[name=uid]').keyup(function(){
+					 
+					 var tag = $(this);
+					 var value = $(this).val();
+					 // console.log('입력값 :'+ value); // chrome console 창에서 확인가능
+					 
+					 if(value.length >= 4){
+						 // ajax 통신
+						 // alert('실행!!!'); // 부분 테스트 하면서 개발하기
+						 var api = '/board2/member/userCheck.do?uid='+value;
+						 $.getJSON(api, function(data){ //json전용함수(요청주소, 핸들러)
+							 if(data.result==1){
+									$('.resultId').css('color','red').text('이미 사용중인 아이디 입니다.');
+									tag.focus();
+									isUidOk = false;
+								}else{
+									$('.resultId').css('color','green').text('사용 가능한 아이디 입니다.');
+									isUidOk = true;
+								}
+							 
+						 }); 
+					 }
+					 
+				 });
+			});
+		
+		</script>
 	</head>
 	<body>
 		<div id="member">
 			<section class="register">
-				<form action="#" method="POST">
+				<form action="/board2/member/register.do" method="POST">
 					<section>
 						<table>
 							<caption>사이트 이용정보 입력</caption>
 							<tr>
 								<td>아이디</td>
 								<td>
-									<input type="text" name="id" placeholder="아이디를 입력" required />
+									<input type="text" name="uid" placeholder="아이디를 입력" required />
 									<span class="resultId"></span>
 								</td>
 							</tr>

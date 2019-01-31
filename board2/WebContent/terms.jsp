@@ -14,7 +14,7 @@
 					<caption>사이트 이용약관</caption>
 					<tr>
 						<td>
-							<textarea readonly></textarea>
+							<textarea readonly>${vo.getTerms() }</textarea>
 							<div>
 								<label><input type="checkbox" name="chk1" />&nbsp;동의합니다.</label>        
 							</div>
@@ -27,7 +27,7 @@
 					<caption>개인정보 취급방침</caption>
 					<tr>
 						<td>
-							<textarea readonly></textarea>
+							<textarea readonly>${vo.privacy}</textarea>
 							<div>
 								<label><input type="checkbox" name="chk2" />&nbsp;동의합니다.</label>        
 							</div>
@@ -37,8 +37,8 @@
 			</section>
 			
 			<div>
-				<a href="#" class="btnCancel">취소</a>
-				<a href="#" class="btnNext">다음</a>
+				<a href="/board2/member/login.do" class="btnCancel">취소</a>
+				<a href="/board2/member/register.do" class="btnNext">다음</a>
 			</div>
 			
 		</div>

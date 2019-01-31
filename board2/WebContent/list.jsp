@@ -11,7 +11,9 @@
 			<h3>글목록</h3>
 			<!-- 리스트 -->
 			<div class="list">
-				<p class="logout">홍길동님! 반갑습니다. <a href="#">[로그아웃]</a><p>
+				<p class="logout">${sessionScope.member.nick}님! 반갑습니다.
+					<a href="/board2/member/logout.do">[로그아웃]</a>
+				<p>
 				<table>
 					<tr>
 						<td>번호</td>
