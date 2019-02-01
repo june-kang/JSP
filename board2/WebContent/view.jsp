@@ -47,8 +47,8 @@
 				
 				<div class="comment">
 					<span>
-						<span>홍길동</span>
-						<span>18-03-01</span>
+						<span class="nick">홍길동</span>
+						<span class="date">18-03-01</span>
 					</span>
 					<textarea>테스트 댓글입니다.</textarea>
 					<div>
@@ -91,7 +91,7 @@
 						var nick	= $('.comment_write input[name=nick]').val();
 						var content	= $('.comment_write textarea').val();
 						
-						var json = '{"parent":"'parent'", "uid":"'uid'", "content":"'content'", "nick":"'nick'"}';
+						var json = {"parent":parent, "uid":uid, "content":content, "nick":nick};
 						/*
 						var json = {
 							parent : parent,
@@ -108,10 +108,19 @@
 							data:json,
 							success:function(result){
 								
-								alert(result);
+								var comments = $('.comments');
+								var comment = $('.comments>.comment');
+								
+								var commentCloned = comment.clone();
+								commentCloned.find('span > .nick').text(result.nick);
+								commentCloned.find('span > .date').text(result.date);
+								commentCloned.find('textarea').text(result.content);
+								comments.append(commentCloned);
 								
 							}
 						});
+						
+						return false // 클릭하면 form태그 액션 실행 "#"되어있어서 return이 제대로 안됨 
 												
 					});
 				});

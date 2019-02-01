@@ -37,6 +37,7 @@ public class CommentService implements CommonAction {
 			String content = req.getParameter("content");
 			String regip = req.getRemoteAddr();
 			
+			
 	
 			Connection conn = DBConfig.getConnection();
 			CallableStatement call = conn.prepareCall(SQL.INSERT_COMMENT);
@@ -58,8 +59,8 @@ public class CommentService implements CommonAction {
 			json.put("content", content);
 			json.put("nick", nick);
 			json.put("date", date);
-
 			
+						
 			return json.toString();
 		} else {
 			return null;

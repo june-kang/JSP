@@ -88,6 +88,7 @@ public class MainController extends HttpServlet {
 			String redirectAddr = result.substring(9);
 			resp.sendRedirect(redirectAddr);
 		} else if(result.startsWith("{")) { //json값. 컨트롤러가 model에서 받은 값을 view를 안거치고 브라우저로 내보냄 or instance instance of UserCheckService - 인스턴스가 UserCheckService 이면
+			resp.setContentType("text/html;charset=UTF-8"); // ajax는 객체가 아니라 String 형태로 받는데 형식이 euc-kr이라 호환이 안됨 따로 지정해야함
 			PrintWriter out = resp.getWriter();
 			out.print(result);
 			
