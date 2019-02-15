@@ -1,6 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="../js/check_validate.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<script src="../js/zipcode.js"></script>
+		<script src="../js/check_duplicate.js"></script>
 		<script>
 			$(document).ready(function(){ // 4자 이상 입력했을때 중복확인하는 키보드이벤트
 				 $('input[name=uid]').keyup(function(){
@@ -27,6 +31,32 @@
 					 }
 					 
 				 });
+			
+				$('input[name=nick]').keyup(function(){
+									 
+									 var tag = $(this);
+									 var value = $(this).val();
+									 // console.log('입력값 :'+ value); // chrome console 창에서 확인가능
+									 
+									 if(value.length >= 4){
+										 // ajax 통신
+										 // alert('실행!!!'); // 부분 테스트 하면서 개발하기
+										 var api = '/farmstory/member/userCheck.do?uid='+value;
+										 $.getJSON(api, function(data){ //json전용함수(요청주소, 핸들러)
+											 if(data.result==1){
+													$('.resultId').css('color','red').text('이미 사용중인 아이디 입니다.');
+													tag.focus();
+													isUidOk = false;
+												}else{
+													$('.resultId').css('color','green').text('사용 가능한 아이디 입니다.');
+													isUidOk = true;
+												}
+											 
+										 }); 
+									 }
+									 
+								 });
+			
 			});
 		
 		</script>

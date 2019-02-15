@@ -45,8 +45,8 @@ public class MainController extends HttpServlet {
 			String v = prop.getProperty(k);
 			
 			try {
-				Class<?> obj = Class.forName(v);
-				Object instance = obj.newInstance();
+				Class<?> obj = Class.forName(v); /*클래스의 정보를 담은 Class클래스 인스턴스 객체를 얻어옴*/
+				Object instance = obj.newInstance(); /*클래스의 인스턴스 생성해서 생성자를 호출해 초기화하고 생성된 인스턴스 리턴 */
 				
 				instances.put(k,instance);
 				
@@ -70,8 +70,8 @@ public class MainController extends HttpServlet {
 	
 	private void requestProc(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String path = req.getContextPath();
-		String uri = req.getRequestURI();
+		String path = req.getContextPath(); /*project의 path명 반환 - farmstory*/
+		String uri = req.getRequestURI(); /*project+파일경로 반환*/
 		String action = uri.substring(path.length());
 		
 		String result = null;
