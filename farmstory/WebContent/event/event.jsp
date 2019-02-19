@@ -13,7 +13,7 @@
           </aside>
           <article>
             <nav>
-              <img src="../img/sub_nav_tit_cate4_tit1.png" alt="이벤트" />
+              <img src="../img/sub_nav_tit_cate4_${cate }.png" alt="이벤트" />
               <p>
                 <img src="../img/sub_page_nav_ico.gif" alt="아이콘" />
                 HOME > <strong>이벤트</strong>
