@@ -75,7 +75,7 @@ public class MainController extends HttpServlet {
 		String action = uri.substring(path.length());
 		
 		String result = null;
-		CommonAction instance = (CommonAction) instances.get(action);
+		CommonAction instance = (CommonAction) instances.get(action); /*key값 경로를 통해 클래스객체를 instance에 저장*/
 		
 		try {
 			result = instance.requestProc(req, resp);
