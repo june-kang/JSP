@@ -1,10 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
-<%@ include file="./_aside_croptalk.jsp" %>
+<jsp:include page="./_aside_${gr}.jsp" />
 <div id="board">
 	<h3>글쓰기</h3>
 	<div class="write">
-		<form action="#" method="post">
+		<form action="/farmstory/board/write.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="gr" value="${gr}" />
+		<input type="hidden" name="cate" value="${cate}" />
 			<table>
 				<tr>
 					<td>제목</td>

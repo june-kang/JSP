@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../_header.jsp" %>
-<%@ include file="./_aside_croptalk.jsp" %>
+<jsp:include page="./_aside_${gr}.jsp" />
 <div id="board">
 	<h3>글보기</h3>
 	<div class="view">
@@ -14,7 +14,8 @@
 
 				<tr>
 					<td>첨부파일</td>
-					<td><a href="#">테스트.hwp</a> <span>3회 다운로드</span></td>
+					<td><a href="/board/filedown.do?seq=${vo.seq }&newName=${vo.newName }&oldName=${vo.oldName}"><img src="/farmstory/img/file_ico.png"/>${vo.oldName }</a>
+					<span>${vo.download }회 다운로드</span></td>
 				</tr>
 
 				<tr>
