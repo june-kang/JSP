@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../_header.jsp" %>
 <jsp:include page="./_aside_${gr}.jsp" />
 <div id="board">
@@ -11,12 +12,16 @@
 					<td><input type="text" name="subject" value="${vo.title }"
 						readonly /></td>
 				</tr>
-
+				
+				<c:if test="${vo.file==1}">
 				<tr>
 					<td>첨부파일</td>
-					<td><a href="/board/filedown.do?seq=${vo.seq }&newName=${vo.newName }&oldName=${vo.oldName}"><img src="/farmstory/img/file_ico.png"/>${vo.oldName }</a>
-					<span>${vo.download }회 다운로드</span></td>
+					<td>
+					<a href="/farmstory/board/filedown.do?seq=${vo.seq }&newName=${vo.newName }&oldName=${vo.oldName}"><img src="/farmstory/img/file_ico.png"/>${vo.oldName }</a>
+					<span>${vo.download }회 다운로드</span>
+					</td>
 				</tr>
+				</c:if>
 
 				<tr>
 					<td>내용</td>
@@ -25,7 +30,8 @@
 				</tr>
 			</table>
 			<div class="btns">
-				<a href="#" class="cancel del">삭제</a> <a href="#" class="cancel mod">수정</a>
+				<a href="#" class="cancel del">삭제</a>
+				<a href="#" class="cancel mod">수정</a>
 				<a href="#" class="cancel">목록</a>
 			</div>
 		</form>
@@ -53,15 +59,15 @@
 	<section class="comment_write">
 		<h3>댓글쓰기</h3>
 		<div>
-			<form action="#" method="post">
-				<input type="hidden" name="parent" value="${vo.seq }" /> <input
-					type="hidden" name="uid" value="${sessionScope.member.uid }" /> <input
-					type="hidden" name="nick" value="${member.nick }" />
+			<form action="/farmstory/board/comment.do" method="post">
+				<input type="hidden" name="parent" value="${vo.seq }" />
+				<input type="hidden" name="uid" value="${sessionScope.member.uid }" />
+				<input type="hidden" name="nick" value="${member.nick }" />
 
 				<textarea name="comment" rows="5"></textarea>
 				<div class="btns">
-					<a href="#" class="cancel">취소</a> <input type="submit"
-						class="submit" value="작성완료" />
+					<input type="reset" class="cancel" value="취소" />
+					<input type="submit" class="submit" value="작성완료" />
 				</div>
 			</form>
 		</div>

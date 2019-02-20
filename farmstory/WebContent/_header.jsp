@@ -35,7 +35,7 @@
 
 				<li><a href="/farmstory/introduction/hello.do">팜스토리소개</a></li>
 				<!-- 컨텍스트 루트로 시작함:액션주소라서 -->
-				<li><a href="/farmstory/market/market.do">장보기</a></li>
+				<li><a href="/farmstory/market/list.do">장보기</a></li>
 				<li><a href="/farmstory/board/list.do?gr=croptalk&cate=story">농작물이야기</a></li>
 				<li><a href="/farmstory/board/list.do?gr=event&cate=event">이벤트</a></li>
 				<li><a href="/farmstory/board/list.do?gr=community&cate=notice">커뮤니티</a></li>
