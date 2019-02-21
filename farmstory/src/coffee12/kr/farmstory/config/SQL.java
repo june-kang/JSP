@@ -32,6 +32,7 @@ public class SQL {
 											+ " WHERE seq=?";
 	public static final String INSERT_COMMENT = "CALL insertComment(?,?,?,?)"; // 다중 쿼리문 실행 가능
 	public static final String SELECT_COMMENT = "SELECT B.*, M.nick FROM `JSP_BOARD` AS B JOIN `JSP_MEMBER` AS M ON B.uid = M.uid WHERE B.parent=? ORDER BY B.seq ASC";
+	public static final String SELECT_LATEST = "SELECT seq, cate, title, SUBSTRING(rdate, 3, 8) as rdate FROM `JSP_BOARD` WHERE cate=? ORDER BY seq DESC LIMIT 5";
 	
 	
 }

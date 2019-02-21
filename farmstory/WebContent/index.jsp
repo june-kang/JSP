@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="./_header.jsp" %>
       <main>
         <div class="slider"><!--이미지 슬라이더 넣읗떄 목록or백그라운드로함-->
@@ -17,101 +18,51 @@
 
         </div>
         <div class="banner">
-          <a href="/farmstory/community/menu.do"><img src="./img/main_banner_sub1_tit.png" /></a>
-          <a href="/farmstory/community/chef.do"><img src="./img/main_banner_sub2_tit.png" /></a>
+          <a href="/farmstory/board/list.do?gr=community&cate=menu"><img src="./img/main_banner_sub1_tit.png" /></a>
+          <a href="/farmstory/board/list.do?gr=community&cate=chef"><img src="./img/main_banner_sub2_tit.png" /></a>
         </div>
         <div class="latest">
           <div>
             <img src="./img/main_latest1_tit.png" alt="텃밭가꾸기">
             <img src="./img/main_latest1_img.jpg" alt="이미지">
-            <table>
+            <table>    
+              <c:forEach var="vo" items="${latest1 }">
+              
               <tr>
                 <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
+                <td><a href="/farmstory/board/view.do?gr=croptalk&cate=${vo.cate}&seq=${vo.seq}">${vo.title }</a></td> 
+                <td>${vo.rdate }</td>
               </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
+              
+              </c:forEach>
             </table>
           </div>
           <div>
             <img src="./img/main_latest2_tit.png" alt="귀농학교">
             <img src="./img/main_latest2_img.jpg" alt="이미지">
-            <table>
+            
+            <table> 
+              <c:forEach var="vo" items="${latest2 }">
               <tr>
                 <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
+                <td><a href="/farmstory/board/view.do?gr=croptalk&cate=${vo.cate}&seq=${vo.seq}">${vo.title }</a></td>  
+                <td>${vo.rdate }</td>
               </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
+              </c:forEach>
             </table>
           </div>
           <div>
             <img src="./img/main_latest3_tit.png" alt="농작물이야기">
             <img src="./img/main_latest3_img.jpg" alt="이미지">
             <table>
+              
+              <c:forEach var="vo" items="${latest3 }">
               <tr>
                 <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
+                <td><a href="/farmstory/board/view.do?gr=croptalk&cate=${vo.cate}&seq=${vo.seq}">${vo.title }</a></td> 
+                <td>${vo.rdate }</td>
               </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
-              <tr>
-                <td>></td>
-                <td>토마토! 건강하게 길러서 안심하고 먹자 </td>
-                <td>19-02-12</td>
-              </tr>
+              </c:forEach>
             </table>
           </div>
         </div>
@@ -130,8 +81,8 @@
                 </tr>
               </table>
               <div>
-                  <a href="/farmstory/community/faq.do"><img src="./img/main_sub2_cs_bt1.png" alt="1:1고객문의" /></a>
-                  <a href="/farmstory/community/qna.do"><img src="./img/main_sub2_cs_bt2.png" alt="자주묻는 질문" /></a>
+                  <a href="/farmstory/board/list.do?gr=community&cate=qna"><img src="./img/main_sub2_cs_bt1.png" alt="1:1고객문의" /></a>
+                  <a href="/farmstory/board/list.do?gr=community&cate=faq"><img src="./img/main_sub2_cs_bt2.png" alt="자주묻는 질문" /></a>
                   <a href="#"><img src="./img/main_sub2_cs_bt3.png" alt="배송 조회" /></a>
               </div>
           </div>
