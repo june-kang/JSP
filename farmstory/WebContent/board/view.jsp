@@ -30,9 +30,9 @@
 				</tr>
 			</table>
 			<div class="btns">
-				<a href="#" class="cancel del">삭제</a>
-				<a href="#" class="cancel mod">수정</a>
-				<a href="#" class="cancel">목록</a>
+				<a href="/farmstory/board/delete.do?seq=${vo.seq }&gr=${gr}&cate=${cate}" class="cancel del">삭제</a>
+				<a href="/farmstory/board/modify.do?seq=${vo.seq }&gr=${gr}&cate=${cate}" class="cancel mod">수정</a>
+				<a href="/farmstory/board/list.do?gr=${gr}&cate=${cate}" class="cancel">목록</a>
 			</div>
 		</form>
 	</div>

@@ -77,7 +77,7 @@ public class ListService implements CommonAction {
 		req.setAttribute("gr", gr);
 		req.setAttribute("cate", cate);
 
-		return "/board/list.jsp?";
+		return "/board/list.jsp";
 	}// requestProc ³¡
 
 
