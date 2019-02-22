@@ -23,7 +23,7 @@
 			</table>
 			<div class="btns">
 				<a href="/farmstory/board/view.do?gr=${gr}&cate=${cate}&seq=${vo.seq}" class="cancel">취소</a>
-				<input type="submit" class="submit" value="작성완료" />
+				<input type="submit" class="submit" value="수정완료" />
 			</div>
 		</form>
 	</div>

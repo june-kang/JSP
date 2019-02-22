@@ -107,7 +107,7 @@ public class WriteService implements CommonAction {
 			req.setAttribute("cate", cate);
 			req.setAttribute("gr", gr);
 
-			return "/board/write.jsp?gr="+gr+"&cate="+cate;
+			return "/board/write.jsp";
 
 		}
 

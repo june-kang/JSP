@@ -30,8 +30,10 @@
 				</tr>
 			</table>
 			<div class="btns">
+			<c:if test="${vo.uid==sessionScope.member.uid}">
 				<a href="/farmstory/board/delete.do?seq=${vo.seq }&gr=${gr}&cate=${cate}" class="cancel del">삭제</a>
 				<a href="/farmstory/board/modify.do?seq=${vo.seq }&gr=${gr}&cate=${cate}" class="cancel mod">수정</a>
+			</c:if>
 				<a href="/farmstory/board/list.do?gr=${gr}&cate=${cate}" class="cancel">목록</a>
 			</div>
 		</form>
