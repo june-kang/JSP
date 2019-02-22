@@ -41,6 +41,8 @@
 	<!-- view 끝 -->
 
 	<!-- 댓글리스트 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../js/comment.js"></script>
 	<section class="comments">
 		<h3>댓글목록</h3>
 
@@ -61,6 +63,8 @@
 	<section class="comment_write">
 		<h3>댓글쓰기</h3>
 		<div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="../js/comment.js"></script>
 			<form action="/farmstory/board/comment.do" method="post">
 				<input type="hidden" name="parent" value="${vo.seq }" />
 				<input type="hidden" name="uid" value="${sessionScope.member.uid }" />
@@ -74,8 +78,7 @@
 			</form>
 		</div>
 	</section>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 				$(function(){
 					var btnComment = $('.comment_write .submit');
